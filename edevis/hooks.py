@@ -204,7 +204,15 @@ fixtures = [
             ]
         ]
     ]},
-    
+    {"dt": "Letter Head", "filters": [
+        [
+            "name", "in", [
+                "edevis Letter",
+                "edevis Datasheet",
+                "edevis Datasheet Modern",
+            ]
+        ]
+    ]}
 
 ]
 
