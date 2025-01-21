@@ -154,7 +154,8 @@ fixtures = [
             "gceik5povl",
             "gb1co6jil4",
             "gbhpvjqck1",
-            "gaofstpch2"
+            "gaofstpch2",
+            "h86tvoidm0"
             ]
         ]
     ]},
@@ -175,6 +176,17 @@ fixtures = [
         [
             "name", "in", [
             "Lead Approval Process"
+            ]
+        ]
+    ]},
+    {"dt": "Workflow Action Master", "filters": [
+        [
+            "name", "in", [
+            "Yes",
+            "No",
+            "Forward to ADM",
+            "Forward marketing mailing list",
+            "Reopen"
             ]
         ]
     ]},

@@ -2,6 +2,15 @@
  {
   "docstatus": 0,
   "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-01-21 12:20:26.841823",
+  "name": "Cancellation by APP",
+  "style": "Danger",
+  "workflow_state_name": "Cancellation by APP"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
   "icon": "question-sign",
   "modified": "2024-09-26 13:28:55.914221",
   "name": "Pending",
