@@ -1,0 +1,70 @@
+{
+    "doctype": "DocType",
+    "module": "Edevis",
+    "name": "Software Download Request",
+    "custom": 0,
+    "is_submittable": 0,
+    "track_changes": 1,
+    "autoname": "naming_series",
+    "naming_series":"SDR-.####",
+
+    "fields": [
+        {
+            "fieldname": "sender",
+            "label": "Sender",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "reqd": 1
+        },
+        {
+            "fieldname": "customer",
+            "label": "Customer",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "options": "Customer"
+        },
+        {
+            "fieldname": "subject",
+            "label": "Subject",
+            "in_list_view": 1,
+            "fieldtype": "Data",
+            "reqd": 1
+        },
+        {
+            "fieldname": "status",
+            "label": "Status",
+            "fieldtype": "Select",
+            "options": "Pending\nApproved\nCompleted\nRejected",
+            "in_list_view": 1,
+            "default": "Pending"
+        },
+        {
+            "fieldname": "expires_on",
+            "label": "Expires On",
+            "in_list_view": 1,
+            "fieldtype": "Date"
+        },
+        {
+            "fieldname": "items",
+            "label": "Items",
+            "fieldtype": "Table",
+            "in_list_view": 1,
+            "options": "Software Download Item"
+        },
+        {
+            "fieldname": "description",
+            "label": "Description",
+            "fieldtype": "Small Text",
+            "in_list_view": 0
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        }
+    ]
+}

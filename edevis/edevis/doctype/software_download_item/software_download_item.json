@@ -1,0 +1,21 @@
+{
+    "doctype": "DocType",
+    "name": "Software Download Item",
+    "module": "Edevis",
+    "istable": 1,
+    "autoname": "hash",
+    "field_order": [
+        "link_name",
+        "path",
+        "item_code",
+        "description",
+        "download_link"
+    ],
+    "fields": [
+      {"fieldname": "link_name", "label": "Link Name", "fieldtype": "Data", "in_list_view": 1, "reqd": 1},
+      {"fieldname": "item_code", "label": "Item Code", "fieldtype": "Data", "in_list_view": 1},
+      {"fieldname": "path", "label": "Nextcloud Path", "fieldtype": "Data", "in_list_view": 1, "reqd": 1},
+      {"fieldname": "description", "label": "Description", "fieldtype": "Small Text"},
+      {"fieldname": "download_link", "label": "Download Link", "fieldtype": "Data", "in_list_view": 1}
+    ]
+}
