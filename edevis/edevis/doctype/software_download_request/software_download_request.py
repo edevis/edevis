@@ -75,10 +75,18 @@ class SoftwareDownloadRequest(Document):
                 logger.info(f"DocType SDR: No customer found for {self.sender}")
 
         self.status = "Rejected"
-        
+
+    def before_save(self):
+        if self.status == "Approved" and not self.release_download():
+            frappe.throw("Download konnte nicht freigegeben werden. Status bleibt Pending (nach reload sichtbar).")
+
     def release_download(self):
         logger.debug(f"DocType SDR: Release download. Search product name: {self.subject}")
 
+        if len(self.items) > 0:
+            logger.debug(f"DocType SDR: Already has {len(self.items)} items. Skip.")
+            return True  # Bereits freigegeben
+        
         try:
             settings = frappe.get_single("Software Download Request Settings")
         except Exception as e:
@@ -147,9 +155,6 @@ class SoftwareDownloadRequest(Document):
     
         return True    
 
-    def before_save(self):
-        if self.status == "Approved" and not self.release_download():
-            frappe.throw("Download konnte nicht freigegeben werden. Status bleibt Pending (nach reload sichtbar).")
 
     def send_email(self):
         rows = []
