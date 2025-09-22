@@ -6316,5 +6316,44 @@
     "name": "ji07efk669",
     "source_text": "Applicable for Items",
     "translated_text": "Gilt für Artikel"
+ },
+ {
+    "context": null,
+    "contributed": 0,
+    "contribution_docname": null,
+    "contribution_status": "",
+    "docstatus": 0,
+    "doctype": "Translation",
+    "language": "en",
+    "modified": "2025-09-11 09:01:15.967646",
+    "name": "0lap2vbrjd",
+    "source_text": "Sitz der Gesellschaft",
+    "translated_text": "Registered Office"
+   },
+   {
+    "context": null,
+    "contributed": 0,
+    "contribution_docname": null,
+    "contribution_status": "",
+    "docstatus": 0,
+    "doctype": "Translation",
+    "language": "en",
+    "modified": "2025-09-11 09:01:08.135730",
+    "name": "0uqd7f6c4n",
+    "source_text": "Amtsgericht Stuttgart",
+    "translated_text": "District Court Stuttgart"
+   },
+   {
+    "context": null,
+    "contributed": 0,
+    "contribution_docname": null,
+    "contribution_status": "",
+    "docstatus": 0,
+    "doctype": "Translation",
+    "language": "en",
+    "modified": "2025-09-11 09:13:32.470872",
+    "name": "8gsibuvmao",
+    "source_text": "Geschäftsführer",
+    "translated_text": "Managing Directors"
    }
 ]
