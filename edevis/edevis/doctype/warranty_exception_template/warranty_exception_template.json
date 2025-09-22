@@ -19,12 +19,12 @@
   },
   {
    "fieldname": "en",
-   "fieldtype": "Text Editor",
+   "fieldtype": "Data",
    "label": "EN"
   },
   {
    "fieldname": "de",
-   "fieldtype": "Text Editor",
+   "fieldtype": "Data",
    "label": "DE"
   }
  ],

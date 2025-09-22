@@ -1,0 +1,42 @@
+{
+  "doctype": "DocType",
+  "name": "Software Download Request Settings",
+  "module": "Edevis",
+  "custom": 1,
+  "istable": 0,
+  "issingle": 1,
+  "fields": [
+    {
+      "fieldname": "nextcloud_url",
+      "label": "Nextcloud URL",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "description": "Basis-URL eurer Nextcloud-Instanz"
+    },
+    {
+      "fieldname": "nextcloud_user",
+      "label": "Nextcloud Benutzer",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "description": "Benutzername für Nextcloud-Zugang"
+    },
+    {
+    "fieldname": "nextcloud_password",
+    "label": "Nextcloud Passwort",
+    "fieldtype": "Password",
+    "reqd": 1,
+    "description": "Passwort für Nextcloud-Zugang"
+    }
+  ],
+  "permissions": [
+      {
+          "role": "System Manager",
+          "read": 1,
+          "write": 1,
+          "create": 1,
+          "delete": 1
+      }
+  ],
+  "autoname": "Prompt"
+}
+
