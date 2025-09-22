@@ -49,5 +49,46 @@
   "slack_webhook_url": null,
   "subject": "Workflow statuswechsel in {{ doc.name }}",
   "value_changed": "workflow_state"
- }
+ },
+{
+  "attach_print": 0,
+  "channel": "Email",
+  "condition": "doc.status == 'Rejected'",
+  "date_changed": null,
+  "days_in_advance": 0,
+  "docstatus": 0,
+  "doctype": "Notification",
+  "document_type": "Software Download Request",
+  "enabled": 1,
+  "event": "Value Change",
+  "is_standard": 0,
+  "message": "Der Software Download Request <a href='{{ frappe.utils.get_url('/app/software-download-request/' + doc.name) }}'>{{ doc.name }}</a> wurde abgelehnt.",
+  "message_type": "Markdown",
+  "method": null,
+  "modified": "2025-09-18 12:00:00",
+  "module": null,
+  "name": "Download Request abgelehnt",
+  "print_format": null,
+  "property_value": null,
+  "recipients": [
+    {
+      "bcc": null,
+      "cc": null,
+      "condition": null,
+      "parent": "Download Request abgelehnt",
+      "parentfield": "recipients",
+      "parenttype": "Notification",
+      "receiver_by_document_field": null,
+      "receiver_by_role": "Software Download Approver"
+    }
+  ],
+  "send_system_notification": 1,
+  "send_to_all_assignees": 0,
+  "sender": null,
+  "sender_email": null,
+  "set_property_after_alert": null,
+  "slack_webhook_url": null,
+  "subject": "Download Request abgelehnt",
+  "value_changed": "status"
+}
 ]

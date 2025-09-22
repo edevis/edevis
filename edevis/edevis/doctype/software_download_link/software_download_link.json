@@ -1,0 +1,48 @@
+{
+    "doctype": "DocType",
+    "module": "Edevis",
+    "name": "Software Download Link",
+    "custom": 0,
+    "is_submittable": 0,
+    "track_changes": 1,
+    "autoname": "field:product_name",
+    "fields": [
+        {
+            "fieldname": "product_name",
+            "label": "Product Name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "unique": 1,
+            "reqd": 1
+        },
+        {
+            "fieldname": "item_code",
+            "label": "Item Code",
+            "fieldtype": "Link",
+            "in_list_view": 0,
+            "options": "Item"
+        },
+        {
+            "fieldname": "items",
+            "label": "Items",
+            "fieldtype": "Table",
+            "in_list_view": 1,
+            "options": "Software Download Link Item"
+        },
+        {
+            "fieldname": "description",
+            "label": "Description",
+            "fieldtype": "Small Text",
+            "in_list_view": 0
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        }
+    ]
+}
