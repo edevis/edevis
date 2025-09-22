@@ -165,12 +165,6 @@ doc_events = {
     },
     "Supplier": {
         "after_insert": "edevis.custom_scripts.custom_python.supplier.after_insert"
-    },
-    # "Software Download Request": {
-	# 	"after_insert": "edevis.custom_scripts.custom_python.downloads.send_download_links"
-	# },
-    "Communication": {
-        "after_insert": "edevis.custom_scripts.custom_python.email_hooks.handle_software_download_email"
     }
 }
 
