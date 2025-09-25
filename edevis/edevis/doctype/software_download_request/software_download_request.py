@@ -57,12 +57,20 @@ class SoftwareDownloadRequest(Document):
     def before_insert(self):    
         logger.debug(f"DocType SDR: Neuer Eintrag erstellt. Absender: {self.sender}")
 
+        self.status = "Pending"
+
+    def after_insert(self):
+        if self.status != "Pending":
+            logger.debug(f"DocType SDR: Status not Pending ({self.status}). Skip checks.")
+            return
+        
         domain_name = self.sender.split("@")[-1].lower()
         allowed = frappe.get_all("Software Download Whitelist Domains", filters={"domain_name": domain_name}, pluck="domain_name")
         if allowed:
             logger.info(f"DocType SDR: Approved via domain. Sender: {self.sender}")
             if self.release_download():
                 self.status = "Approved"
+                self.save(ignore_permissions=True)
                 return
         else:
             customers = get_customer_by_email(self.sender)  # Nur zum Testen, ob Kunde existiert
@@ -70,11 +78,13 @@ class SoftwareDownloadRequest(Document):
                 logger.info(f"DocType SDR: Approved via customer for {self.sender}: " + ", ".join([c.customer_name for c in customers]))
                 if self.release_download():
                     self.status = "Approved"
+                    self.save(ignore_permissions=True)
                     return
             else:
                 logger.info(f"DocType SDR: No customer found for {self.sender}")
 
         self.status = "Rejected"
+        self.save(ignore_permissions=True)
 
     def before_save(self):
         if self.status == "Approved" and not self.release_download():
@@ -148,7 +158,7 @@ class SoftwareDownloadRequest(Document):
             })
             logger.debug(f"DocType SDR: Element appended: {share_link}")
 
-        self.send_email()
+        ### self.send_email()
 
         logger.debug(f"DocType SDR: Cleaning up expired shares")
         api.cleanup_expired_shares()
@@ -156,52 +166,52 @@ class SoftwareDownloadRequest(Document):
         return True    
 
 
-    def send_email(self):
-        rows = []
-        # Falls keine Artikelnummer: Spaltenüberschrift weglassen
-        has_item_code = any(i.item_code for i in self.items)
+    # def send_email(self):
+    #     rows = []
+    #     # Falls keine Artikelnummer: Spaltenüberschrift weglassen
+    #     has_item_code = any(i.item_code for i in self.items)
 
-        for item in self.items:
-            # Artikelnummer optional
-            item_code = f"<td>{cstr(item.item_code or '---')}</td>" if has_item_code else ""
+    #     for item in self.items:
+    #         # Artikelnummer optional
+    #         item_code = f"<td>{cstr(item.item_code or '---')}</td>" if has_item_code else ""
             
-            rows.append(f"""
-                <tr>
-                    <td>{cstr(item.link_name)}</td>
-                    {item_code}
-                    <td>{cstr(item.description)}</td>
-                    <td><a href="{cstr(item.download_link)}" target="_blank">Download</a></td>
-                </tr>
-            """)
+    #         rows.append(f"""
+    #             <tr>
+    #                 <td>{cstr(item.link_name)}</td>
+    #                 {item_code}
+    #                 <td>{cstr(item.description)}</td>
+    #                 <td><a href="{cstr(item.download_link)}" target="_blank">Download</a></td>
+    #             </tr>
+    #         """)
 
-        header_row = """
-            <tr>
-                <th>Product</th>
-                {item_code_header}
-                <th>Description</th>
-                <th>Link</th>
-            </tr>
-        """.format(item_code_header="<th>Item number</th>" if has_item_code else "")
+    #     header_row = """
+    #         <tr>
+    #             <th>Product</th>
+    #             {item_code_header}
+    #             <th>Description</th>
+    #             <th>Link</th>
+    #         </tr>
+    #     """.format(item_code_header="<th>Item number</th>" if has_item_code else "")
         
-        details = f"""<h4>Description</h4><p>{self.description}</p>""" if self.description else ""
+    #     details = f"""<h4>Description</h4><p>{self.description}</p>""" if self.description else ""
 
-        html = f"""
-            <p>Valued customer.</p>
-            <p>Thank you for your inquiry. Here are your personal download links:</p>
-            <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-                {header_row}
-                {''.join(rows)}
-            </table>
-            {details}
-            <p>Please note that the links will expire on {self.expires_on}.</p>
-            <p>Sincerely,<br>
-            Your edevis Support-Team</p>
-        """
+    #     html = f"""
+    #         <p>Valued customer.</p>
+    #         <p>Thank you for your inquiry. Here are your personal download links:</p>
+    #         <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+    #             {header_row}
+    #             {''.join(rows)}
+    #         </table>
+    #         {details}
+    #         <p>Please note that the links will expire on {self.expires_on}.</p>
+    #         <p>Sincerely,<br>
+    #         Your edevis Support-Team</p>
+    #     """
 
-        # logger.debug(html)
+    #     # logger.debug(html)
 
-        frappe.sendmail(
-            recipients=[self.sender],
-            subject="Your edevis Software Downloads",
-            message=html
-        )
+    #     frappe.sendmail(
+    #         recipients=[self.sender],
+    #         subject="Your edevis Software Downloads",
+    #         message=html
+    #     )
