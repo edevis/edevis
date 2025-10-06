@@ -39,7 +39,7 @@ def update_customer_ids(name):
     
     customers = frappe.get_all(
         "Customer",
-        fields=["name", "legacy_id", "customer_name", "customer_group"],
+        fields=["name", "customer_name", "customer_group"],
         filters=filters,
     )
 
