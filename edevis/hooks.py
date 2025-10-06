@@ -234,9 +234,6 @@ fixtures = [
         "doctype": "Terms and Conditions"
     },
     {
-        "doctype": "Translation"
-    },
-    {
         "doctype": "Dual Use Template"
     },
     {
