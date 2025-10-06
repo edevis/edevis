@@ -28,6 +28,21 @@ class Customer(ERPNextCustomer):
         #sets customer ID
         self.name = cstr(customer_id)
 
+    # Preserve display name when renaming the document ID
+    def before_rename(self, old_name, new_name, merge=False):
+        # store current customer_name to restore later in after_rename
+        self._preserved_customer_name = self.customer_name
+        return {"new": new_name}
+
+    def after_rename(self, old_name, new_name, merge=False):
+        # restore customer_name if it got changed during rename
+        preserved = getattr(self, "_preserved_customer_name", None)
+        if preserved and self.customer_name != preserved:
+            self.db_set("customer_name", preserved, update_modified=False)
+        # clean up in-memory attribute
+        if hasattr(self, "_preserved_customer_name"):
+            delattr(self, "_preserved_customer_name")
+
 
     def get_last_customer_id(self) -> int:
         customer = frappe.qb.DocType("Customer")
@@ -165,7 +180,7 @@ class Customer(ERPNextCustomer):
 
 
     def validate_customer_name(self):
-        existing_customer = frappe.db.get_value("Customer", {"customer_name":self.customer_name}, "name")
+        existing_customer = frappe.db.get_value("Customer", {"customer_name": self.customer_name}, "name")
         if existing_customer:
 
             #shows warning that a same named customer already exists in the system
