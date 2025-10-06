@@ -11,7 +11,7 @@ def update_serial_no(doc, method):
     if not item_code or not serial_no:
         return
 
-    new_name = f"{item_code}:{serial_no}"
+    new_name = f"{item_code} SN:{serial_no}"
 
     # Enforce uniqueness
     if frappe.db.exists("Serial No", new_name):
