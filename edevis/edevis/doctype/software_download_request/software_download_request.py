@@ -158,60 +158,8 @@ class SoftwareDownloadRequest(Document):
             })
             logger.debug(f"DocType SDR: Element appended: {share_link}")
 
-        ### self.send_email()
-
         logger.debug(f"DocType SDR: Cleaning up expired shares")
         api.cleanup_expired_shares()
     
         return True    
 
-
-    # def send_email(self):
-    #     rows = []
-    #     # Falls keine Artikelnummer: Spaltenüberschrift weglassen
-    #     has_item_code = any(i.item_code for i in self.items)
-
-    #     for item in self.items:
-    #         # Artikelnummer optional
-    #         item_code = f"<td>{cstr(item.item_code or '---')}</td>" if has_item_code else ""
-            
-    #         rows.append(f"""
-    #             <tr>
-    #                 <td>{cstr(item.link_name)}</td>
-    #                 {item_code}
-    #                 <td>{cstr(item.description)}</td>
-    #                 <td><a href="{cstr(item.download_link)}" target="_blank">Download</a></td>
-    #             </tr>
-    #         """)
-
-    #     header_row = """
-    #         <tr>
-    #             <th>Product</th>
-    #             {item_code_header}
-    #             <th>Description</th>
-    #             <th>Link</th>
-    #         </tr>
-    #     """.format(item_code_header="<th>Item number</th>" if has_item_code else "")
-        
-    #     details = f"""<h4>Description</h4><p>{self.description}</p>""" if self.description else ""
-
-    #     html = f"""
-    #         <p>Valued customer.</p>
-    #         <p>Thank you for your inquiry. Here are your personal download links:</p>
-    #         <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-    #             {header_row}
-    #             {''.join(rows)}
-    #         </table>
-    #         {details}
-    #         <p>Please note that the links will expire on {self.expires_on}.</p>
-    #         <p>Sincerely,<br>
-    #         Your edevis Support-Team</p>
-    #     """
-
-    #     # logger.debug(html)
-
-    #     frappe.sendmail(
-    #         recipients=[self.sender],
-    #         subject="Your edevis Software Downloads",
-    #         message=html
-    #     )
