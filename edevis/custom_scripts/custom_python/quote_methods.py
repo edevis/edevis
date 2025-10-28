@@ -104,14 +104,14 @@ def structurize_quoteitem(doc):
 				item.discount_amount=0
 				if item.item_group == 'Lohnleistungen' and doc.hide_hour_rates_for_services:					
 					item.qty = 1
-					item.uom =  "Einheit"
+					item.uom =  "Unit"
 			else:
 				if item.item_group == 'Lohnleistungen' and doc.hide_hour_rates_for_services:
 					item.net_amount *= item.qty
 					item.rate *= item.qty
 					item.net_rate *= item.qty
 					item.qty = 1
-					item.uom =  "Einheit"
+					item.uom =  "Unit"
 
 			itemList.append(item)
 	return itemList

@@ -9,7 +9,7 @@
   "barcodes": [],
   "batch_number_series": null,
   "brand": null,
-  "country_of_origin": "Germany",
+  "country_of_origin": "",
   "create_new_batch": 0,
   "custom_customs_compliant_item_description": null,
   "custom_dual_use_export_item_number": null,
@@ -65,23 +65,6 @@
     "parentfield": "item_defaults",
     "parenttype": "Item",
     "selling_cost_center": null
-   },
-   {
-    "buying_cost_center": null,
-    "company": "Phamos Pvt Ltd",
-    "default_discount_account": null,
-    "default_price_list": null,
-    "default_provisional_account": null,
-    "default_supplier": null,
-    "default_warehouse": null,
-    "deferred_expense_account": null,
-    "deferred_revenue_account": null,
-    "expense_account": null,
-    "income_account": "Sales - PPL",
-    "parent": "Section End",
-    "parentfield": "item_defaults",
-    "parenttype": "Item",
-    "selling_cost_center": null
    }
   ],
   "item_group": "Format Elemente",
@@ -108,7 +91,7 @@
   "serial_no_series": null,
   "shelf_life_in_days": 0,
   "standard_rate": 0.0,
-  "stock_uom": "Einheit",
+  "stock_uom": "Unit",
   "supplier_items": [],
   "taxes": [],
   "total_projected_qty": 0.0,
@@ -118,7 +101,7 @@
     "parent": "Section End",
     "parentfield": "uoms",
     "parenttype": "Item",
-    "uom": "Einheit"
+    "uom": "Unit"
    }
   ],
   "valuation_method": "",
@@ -139,7 +122,7 @@
   "barcodes": [],
   "batch_number_series": null,
   "brand": null,
-  "country_of_origin": "Germany",
+  "country_of_origin": "",
   "create_new_batch": 0,
   "custom_customs_compliant_item_description": null,
   "custom_dual_use_export_item_number": null,
@@ -195,23 +178,6 @@
     "parentfield": "item_defaults",
     "parenttype": "Item",
     "selling_cost_center": null
-   },
-   {
-    "buying_cost_center": null,
-    "company": "Phamos Pvt Ltd",
-    "default_discount_account": null,
-    "default_price_list": null,
-    "default_provisional_account": null,
-    "default_supplier": null,
-    "default_warehouse": null,
-    "deferred_expense_account": null,
-    "deferred_revenue_account": null,
-    "expense_account": null,
-    "income_account": "Sales - PPL",
-    "parent": "Section Header",
-    "parentfield": "item_defaults",
-    "parenttype": "Item",
-    "selling_cost_center": null
    }
   ],
   "item_group": "Format Elemente",
@@ -238,7 +204,7 @@
   "serial_no_series": null,
   "shelf_life_in_days": 0,
   "standard_rate": 0.0,
-  "stock_uom": "Einheit",
+  "stock_uom": "Unit",
   "supplier_items": [],
   "taxes": [],
   "total_projected_qty": 0.0,
@@ -248,7 +214,7 @@
     "parent": "Section Header",
     "parentfield": "uoms",
     "parenttype": "Item",
-    "uom": "Einheit"
+    "uom": "Unit"
    }
   ],
   "valuation_method": "",
