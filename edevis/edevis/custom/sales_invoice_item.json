@@ -1,5 +1,14 @@
 {
- "custom_fields": [],
+ "custom_fields": [
+    {
+      "dt": "Sales Invoice Item",
+      "fieldname": "custom_position",
+      "fieldtype": "Data",
+      "label": "Position",
+      "in_list_view": 1,
+      "insert_before": "barcode"
+    }
+ ],
  "custom_perms": [],
  "doctype": "Sales Invoice Item",
  "links": [],

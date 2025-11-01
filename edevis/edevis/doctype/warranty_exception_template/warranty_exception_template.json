@@ -20,12 +20,14 @@
   {
    "fieldname": "en",
    "fieldtype": "Data",
-   "label": "EN"
+   "label": "EN",
+   "length": 255
   },
   {
    "fieldname": "de",
    "fieldtype": "Data",
-   "label": "DE"
+   "label": "DE",
+   "length": 255
   }
  ],
  "index_web_pages_for_search": 1,
