@@ -1,0 +1,136 @@
+
+.addressfield{
+    border: collapse !important;
+    width: 100%;
+    font-size: 8pt;
+    margin-bottom: 4em;
+}
+
+.addressfield p{
+    font-size: 7pt;
+    margin-bottom: 2em;
+}
+.warrenty-excep{
+    margin-left:30px;
+}
+
+table.dense {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    font-size: 8pt !important;
+    line-height: 1.1 !important;
+}
+
+table.dense td,
+table.dense th {
+    padding: 1px 3px !important;
+    margin: 0 !important;
+    vertical-align: top; /* optional: vermeidet “hängende” Texte */
+}
+
+.myFooterCol{
+    width: 25%;
+    font-size: 6pt; 
+    font-style: oblique; 
+    font-weight: 200; 
+    font-family: 'Univers LT Std'; 
+    font-style: oblique;
+}
+
+.myFooterCol td:first-child{
+    border-left: none  !important;
+}
+
+.print-format {
+	font-family: 'Univers LT Std';
+}
+
+p.headline{
+    border-bottom: black solid 1px; 
+    margin-bottom: 1em;
+}
+
+.infobox{
+    background-color: #f7f7f7; 
+    padding-top: 0.5em;
+    padding-left: 1em;
+    padding-right: 2em;
+    padding-bottom: 1em;
+    height: auto;
+}
+
+.spec {
+  border-collapse: collapse;
+  background-color: #fafafa;
+  width: 100%;
+  font-size: x-small;
+}
+
+table.pricetable {
+    /* line-height: 1; */
+    border-left: 1px solid gray  !important;
+    border-right: 1px solid gray  !important;
+    border-top: 1px solid gray  !important;
+    border-bottom: 1px solid gray  !important;
+    width: 100% !important;
+    
+	/* from dense */
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    line-height: 1.1 !important;
+}
+
+
+table.pricetable td,
+table.pricetable th {
+    padding: 1px 3px !important;
+    margin: 0 !important;
+    vertical-align: top; /* optional: vermeidet “hängende” Texte */
+}
+
+table.pricetable td{
+    border-left: 1px solid gray !important;
+    border-right: 1px solid gray !important;
+}
+
+.sumtable {
+    border: none !important;
+    width: 100%;
+    font-size: 7pt;
+    border-spacing: 0px;
+    padding: 0px;
+}
+
+tr.page-break {
+  border-bottom: 1px solid black; /* Fügen Sie hier Ihre Linienstildefinition hinzu */
+}
+
+tr.tableLine {   
+    border-top: solid 1px gray;
+}
+
+tr:last-child.quoteitems {
+    border-bottom: solid 2px gray;
+}
+.sectionHeader {
+    font-weight: bold;
+}
+
+.spec td {
+  border: 1px solid gray; 
+}
+.spec tr:first-child td {
+  border-top: 0;
+}
+.spec tr td:first-child {
+  border-left: 0;
+}
+.spec tr:last-child td {
+  border-bottom: 0;
+}
+.spec tr td:last-child {
+  border-right: 0;
+}
+.ql-editor {
+    overflow: hidden !important;
+}
