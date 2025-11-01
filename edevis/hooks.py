@@ -358,7 +358,8 @@ jinja = {
         "edevis.custom_scripts.custom_python.quote_methods.quoteitem_has_discount",
         "edevis.custom_scripts.custom_python.quote_methods.structurize_quoteitem",
         "edevis.custom_scripts.custom_python.quote_methods.get_contacts",
-        "edevis.custom_scripts.custom_python.quote_methods.get_dual_use"
+        "edevis.custom_scripts.custom_python.quote_methods.get_dual_use",
+        "edevis.custom_scripts.custom_python.quote_methods.get_item_datasheet"
     ]
 }
 
