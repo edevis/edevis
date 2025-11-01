@@ -1,4 +1,5 @@
 import frappe
+import re
 
 # check if a quotation is well formated, especially using seciton items
 def check_quoteitems(doc):
@@ -8,7 +9,7 @@ def check_quoteitems(doc):
 	cnt=0
 	for item in doc.items:
 		i+=1
-		if item.item_group == "Format Elemente" and item.amount != 0: 	    
+		if item.item_group == "Format Elemente" and item.amount != 0: 		
 			return ("ERROR: Section Element (POS " + str(i) + ") must have a price (amount) of 0 EUR")
 		if item.item_group == "Format Elemente" and item.item_code == "Section Header":
 			if inSection == True: 
@@ -62,14 +63,12 @@ def quoteitem_has_discount(doc):
 
 ### quoteitem position enumeration
 def structurize_quoteitem(doc):
-	#if not doc.items[0].position is None:
-	#	pass
 	if not check_quoteitems(doc):		
 		pass
-
+	
 	curheader=None
 	p1=0
-	p2=0            
+	p2=0			
 	itemList = []
 	for item in doc.items:
 		if curheader is not None:
@@ -110,9 +109,13 @@ def structurize_quoteitem(doc):
 					item.net_amount *= item.qty
 					item.rate *= item.qty
 					item.net_rate *= item.qty
+					item.price_list_rate *= item.qty					
 					item.qty = 1
 					item.uom =  "Unit"
 
+			# weight_info = calculate_total_weight(doc.item_code, target_uom="Kg")
+			# item.weight_per_unit = weight_info["total_weight"]
+			# item.weight_uom = weight_info["weight_uom"]
 			itemList.append(item)
 	return itemList
 
@@ -180,3 +183,114 @@ def set_item(templates, item, template):
 				if item not in d["itemss"]:
 					d["itemss"] = f"{d['itemss']}, {item}"
 	return templates
+
+def normalize(text):
+	# HTML-Tags entfernen
+	return re.sub(r'<[^>]+>', '', text or '').strip()
+	
+def get_item_datasheet(item, language=None):
+	"""
+	Liefert das passende Datenblatt für einen Artikel basierend auf:
+	1. Template Artikel - 'ITEM_CODE Datasheet'
+	2. Artikel - 'ITEM_CODE Datasheet'
+	3. Template Artikel - 'item.description'
+	4. Artikel - 'item.description'
+	5. fallback: item.description
+	"""
+
+	language = language or frappe.local.lang
+
+	if not item or not item.item_code:
+		return None
+
+	item_code = item.item_code
+	datasheet = None
+
+
+	# Hilfsfunktion, um Übersetzung zu bekommen
+	def get_translation(source_value, language, for_item=None):
+		filters = {
+			"language": language,
+			"source_text": source_value
+		}
+		if for_item:
+			filters["name"] = for_item  # optional, falls du Template/Item unterscheiden willst
+		return frappe.get_value("Translation", filters, "translated_text")
+
+	# 1. Template Artikel Datasheet
+	variant_of = getattr(item, "variant_of", None)
+	if variant_of:
+		template_code = variant_of
+		datasheet = get_translation(f"{template_code} Datasheet", language)		
+		if datasheet:
+			return insert_att_table_html(item, datasheet)
+			
+	else:
+		desc = 'Item is no variant<br>'
+
+	# 2. Artikel Datasheet
+	datasheet = get_translation(f"{item_code} Datasheet", language)
+	if datasheet:
+		return datasheet
+
+	# 4. Artikel description
+	datasheet = frappe._(item.description)
+	return datasheet	
+
+def insert_att_table_html(item, html):	
+	"""
+	Fügt die übergebene table_html zwischen dem letzten </div>
+	und dem <table class="table table-condensed spec"> ein.
+	
+	html: Original HTML-String
+	table_html: die einzufügende Tabelle als HTML-String
+	"""
+
+	def get_item_attributes(item, language=None):
+		"""
+		Gibt eine Liste von Tupeln (Attribut, Wert) zurück,
+		wobei der Attributname übersetzt ist (falls Übersetzung existiert).
+		"""
+		if not item:
+			return []
+
+		language = language or frappe.local.lang
+
+		attributes = []
+		for att in getattr(item, "attributes", []):
+			# Übersetzte Attributbezeichnung holen
+			translated_attr = frappe.get_value(
+				"Translation",
+				{"source_text": att.attribute, "language": language},
+				"translated_text"
+			) or att.attribute  # fallback: original
+
+			attributes.append((translated_attr, att.attribute_value))
+
+		return attributes
+	
+	table_html = '<table class="table table-condensed spec">\n'
+	table_html += f"<tr><th>{frappe._('Technical Data')}</th><th>{item.item_code}</th></tr>\n"
+	for attr, value in get_item_attributes(item):
+		table_html += f"<tr><td>{attr}:</td><td>{value}</td></tr>"
+	table_html += "</table>"
+
+	last_div_index = html.rfind("</div>")
+	if last_div_index == -1:
+		last_div_index = 0  # fallback: Anfang des Strings
+	else:
+		last_div_index += len("</div>")  # nach </div> einfügen
+
+	# Index des <table ...> finden (nach last_div_index)
+	table_index = html.find('<table class="table table-condensed spec">', last_div_index)	
+	if table_index == -1:
+		# fallback: Tabelle ans Ende hängen
+		return html + table_html
+
+	# Alles zwischen last_div_index und table_index entfernen, Whitespaces strippen
+	before = html[:last_div_index].rstrip()
+	after = html[table_index:]
+
+	# Neue HTML zusammensetzen
+	return f"{before}\n{table_html}\n{after}"
+
