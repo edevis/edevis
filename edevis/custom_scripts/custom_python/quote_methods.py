@@ -90,7 +90,13 @@ def structurize_quoteitem(doc):
 				curheader=None
 				# don't append section end to the list of items
 		else:
-			if curheader is not None and doc.hide_item_price_within_section:				
+			parent_item_group = frappe.db.get_value(
+				"Item Group",
+				frappe.db.get_value("Item", item.item_code, "item_group"),
+				"parent_item_group"
+			)
+
+			if curheader is not None and doc.hide_item_price_within_section:
 				curheader.amount += item.amount
 				curheader.rate += item.rate*item.qty
 				curheader.discount_percentage=0 if (curheader.amount==0 or curheader.rate==0) else (curheader.rate-curheader.amount)/curheader.rate*100
@@ -101,11 +107,12 @@ def structurize_quoteitem(doc):
 				item.net_rate=0
 				item.discount_percentage=0
 				item.discount_amount=0
-				if item.item_group == 'Lohnleistungen' and doc.hide_hour_rates_for_services:					
+
+				if doc.hide_hour_rates_for_services and parent_item_group == 'EDD - Dienstleistungen' and item.uom == "hour(s)":
 					item.qty = 1
 					item.uom =  "Unit"
 			else:
-				if item.item_group == 'Lohnleistungen' and doc.hide_hour_rates_for_services:
+				if doc.hide_hour_rates_for_services and parent_item_group == 'EDD - Dienstleistungen' and item.uom == "hour(s)":
 					item.net_amount *= item.qty
 					item.rate *= item.qty
 					item.net_rate *= item.qty
@@ -113,12 +120,8 @@ def structurize_quoteitem(doc):
 					item.qty = 1
 					item.uom =  "Unit"
 
-			# weight_info = calculate_total_weight(doc.item_code, target_uom="Kg")
-			# item.weight_per_unit = weight_info["total_weight"]
-			# item.weight_uom = weight_info["weight_uom"]
 			itemList.append(item)
 	return itemList
-
 
 def get_contacts(self):
 	groups = ["Format Elemente"]
