@@ -25,7 +25,7 @@ def execute():
             filters={"source_text": normalize(item.description)}
         )
         if not translations:
-            print(f"{i}th Item {item.item_code}: Keine Übersetzungen gefunden.")
+            # print(f"{i}th Item {item.item_code}: Keine Übersetzungen gefunden.")
             i += 1
             continue
         else:
@@ -36,9 +36,9 @@ def execute():
 
         for tr in translations:
             new_source = f'{item.item_code} Datasheet'
-            #  frappe.db.set_value("Translation", tr.name, "source_text", new_source)
+            frappe.db.set_value("Translation", tr.name, "source_text", new_source)
             print(
-                f"SIMULATED Updated {i}th Translation {tr.name}: '{tr.source_text}' → '{new_source}'"
+                f"Updated {i}th Translation {tr.name}: '{tr.source_text}' → '{new_source}'"
             )
 
         i += 1
