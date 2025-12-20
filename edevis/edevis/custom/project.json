@@ -1,55 +1,20 @@
 {
- "custom_fields": [],
- "custom_perms": [],
  "doctype": "Project",
- "links": [],
- "property_setters": [
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2025-03-04 18:53:09.685733",
-   "default_value": null,
-   "doc_type": "Project",
-   "docstatus": 0,
-   "doctype_or_field": "DocField",
-   "field_name": "naming_series",
-   "idx": 0,
-   "is_system_generated": 0,
-   "modified": "2025-03-04 18:53:09.685733",
-   "modified_by": "Administrator",
-   "module": null,
-   "name": "Project-naming_series-default",
-   "owner": "Administrator",
-   "property": "default",
-   "property_type": "Text",
-   "row_name": null,
-   "value": "P-.####"
-  },
-  {
-   "_assign": null,
-   "_comments": null,
-   "_liked_by": null,
-   "_user_tags": null,
-   "creation": "2025-03-04 18:53:09.634636",
-   "default_value": null,
-   "doc_type": "Project",
-   "docstatus": 0,
-   "doctype_or_field": "DocField",
-   "field_name": "naming_series",
-   "idx": 0,
-   "is_system_generated": 0,
-   "modified": "2025-03-04 18:53:09.634636",
-   "modified_by": "Administrator",
-   "module": null,
-   "name": "Project-naming_series-options",
-   "owner": "Administrator",
-   "property": "options",
-   "property_type": "Text",
-   "row_name": null,
-   "value": "P-.####"
-  }
+ "custom_fields": [
+    {
+        "dt": "Project",
+        "fieldname": "project_manager",
+        "label": "Project Manager",
+        "fieldtype": "Link",
+        "options": "User",
+        "insert_after": "project_name",
+        "read_only": 0,
+        "hidden": 0,
+        "unique": 0
+    }
  ],
+ "custom_perms": [], 
+ "links": [],
+ "property_setters": [],
  "sync_on_migrate": 1
 }
