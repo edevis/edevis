@@ -221,24 +221,24 @@ def get_item_datasheet(item, language=None):
 		return frappe.get_value("Translation", filters, "translated_text")
 
 	# 1. Template Artikel Datasheet
-	variant_of = getattr(item, "variant_of", None)
+	# re-load the full item document to have access to variant field
+	fullitem = frappe.get_doc("Item", item_code)
+
+	variant_of = getattr(fullitem, "variant_of", None)
 	if variant_of:
 		template_code = variant_of
 		datasheet = get_translation(f"{template_code} Datasheet", language)		
 		if datasheet:
-			return insert_att_table_html(item, datasheet)
-			
-	else:
-		desc = 'Item is no variant<br>'
+			return  datasheet
 
 	# 2. Artikel Datasheet
 	datasheet = get_translation(f"{item_code} Datasheet", language)
 	if datasheet:
-		return datasheet
+		return  datasheet
 
 	# 4. Artikel description
 	datasheet = frappe._(item.description)
-	return datasheet	
+	return datasheet
 
 def insert_att_table_html(item, html):	
 	"""
